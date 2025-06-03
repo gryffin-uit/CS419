@@ -37,10 +37,58 @@ This project implements different Information Retrieval (IR) models including:
     ```bash
     python setup_nltk.py
 
-6. Run the main program
+6. Run the main program to valid F1,Precision,ReCall and MAP score
 
     ```bash
     python main.py
+
+
+# IR Query Runner (`run_query.py`)
+
+This script runs different Information Retrieval (IR) models on a specific query and returns the top relevant documents.
+
+## Supported Models
+
+- **Boolean**
+- **Vector Space**
+- **LSA Boolean**
+
+---
+
+## Usage
+
+```bash
+    python run_query.py -qid <query_id> --model <model_name> [-n TOP_N] [--prepare_tfidf] [--prepare_inverted_index] [--show_result]
+
+
+### Arguments
+
+- `-qid`: Query ID (1-based index). **Required**
+- `--model`: The IR model to use. Must be one of `"Boolean"`, `"VectorSpace"`, or `"LSA_Boolean"`. **Required**
+- `-n`, `--top_n`: Number of top documents to return (default: 10)
+- `--prepare_tfidf`: Prepare TF-IDF matrix (only used for VectorSpace model)
+- `--prepare_inverted_index`: Prepare inverted index (used by Boolean, LSA_Boolean, and VectorSpace models)
+- `--show_result`: Show detailed content of the returned documents
+
+---
+
+### Examples
+
+1. Run Boolean model on query #5, return top 5 documents, show detailed results:
+
+   ```bash
+   python run_query.py -qid 5 --model Boolean -n 5 --prepare_inverted_index --show_result
+
+2. Run Vector Space model on query #1, return top 10 documents, prepare TF-IDF and inverted index, show detailed results:
+
+    ```bash
+    python run_query.py -qid 1 --model VectorSpace --prepare_tfidf --prepare_inverted_index --show_result
+
+3. Run LSA Boolean model on query #3, return top 8 documents, prepare inverted index:
+
+    ```bash
+    python run_query.py -qid 3 --model LSA_Boolean -n 8 --prepare_inverted_index
+
 
 ## 📁 Project Structure
 
@@ -53,8 +101,10 @@ This project implements different Information Retrieval (IR) models including:
 ## 📌 Notes
 
 - Ensure the input data (Cranfield dataset) is placed properly in the `in/` folder.
-- Outputs like precision, recall, and F1-score will be printed in the terminal.
-
+- The documents, queries, and relevance data files are loaded from paths specified in the config.py file.
+- For Boolean and LSA Boolean models, it is recommended to use --prepare_inverted_index.
+- The Vector Space model requires both TF-IDF and inverted index data, so use --prepare_tfidf and --prepare_inverted_index.
+- Use --show_result to print the full content of the retrieved documents for better analysis.
 ## 👨‍🏫 Advisor
 
 - TS. Nguyễn Trọng Chỉnh
