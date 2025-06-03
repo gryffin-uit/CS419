@@ -56,7 +56,7 @@ This script runs different Information Retrieval (IR) models on a specific query
 ---
 
 ## Usage
-    ```bash
+    
     python run_query.py -qid <query_id> --model <model_name> [-n TOP_N] [--prepare_tfidf] [--prepare_inverted_index] [--show_result]
 
 
