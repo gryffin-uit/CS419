@@ -113,7 +113,7 @@ This script runs different Information Retrieval (IR) models on a specific query
 | STT | MSSV     | Full Name                |
 |-----|----------|--------------------------|
 | 1   | 22520811 | Huỳnh Ngọc Bảo Long      |
-| 2   | ........ | .........................|
-| 3   | ........ | .........................|
+| 2   | 22521465 | Huỳnh Dương Tiến         |
+| 3   | 22521007 | Trần Thành Nhân          |
 
 
