@@ -5,7 +5,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import normalize
 from models.boolean import boolean_retrieval
 
-def LSA_boolean(query, documents, inverted_index, number_of_selected,n_components=100):
+def LSA_with_boolean(query, documents, inverted_index, number_of_selected,n_components=100):
     # Bước 1: Lọc tài liệu liên quan bằng mô hình Boolean
     filtered_ids = boolean_retrieval(query, inverted_index)
     filtered_docs = [documents[i - 1] for i in filtered_ids]  # -1 vì index bắt đầu từ 0
