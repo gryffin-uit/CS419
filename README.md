@@ -15,12 +15,12 @@ This project implements different Information Retrieval (IR) models including:
 1. Clone the repository:
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/gryffin-uit/CS419.git
 
 2. Navigate to the project folder:
 
     ```bash
-    cd <project-folder-name>
+    cd CS419
 
 3. Make sure you are using Python 3.9. You can check your version:
 
@@ -52,7 +52,7 @@ This project implements different Information Retrieval (IR) models including:
 
 ## 📌 Notes
 
-- Ensure the input data (Cranfield dataset) is placed properly in the `in/` folder.
+- Ensure the input data (Cranfield dataset) is placed properly in the root folder.
 - Outputs like precision, recall, and F1-score will be printed in the terminal.
 
 
