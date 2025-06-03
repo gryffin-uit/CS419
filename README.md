@@ -52,9 +52,8 @@ This project implements different Information Retrieval (IR) models including:
 
 ## 📌 Notes
 
-- Ensure the input data (Cranfield dataset) is placed properly in the root folder.
+- Ensure the input data (Cranfield dataset) is placed properly in the `in/` folder.
 - Outputs like precision, recall, and F1-score will be printed in the terminal.
-
 
 ## 👨‍🏫 Advisor
 
