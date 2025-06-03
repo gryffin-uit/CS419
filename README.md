@@ -1,9 +1,17 @@
 # Information Retrieval Project
 
-This project implements different Information Retrieval (IR) models including:
-- Boolean Model
-- Vector Space Model (TF-IDF)
-- Latent Semantic Indexing (LSI) using Boolean filtering
+
+Welcome to the **Information Retrieval (IR) System** developed by **Team ManChester City** — where precision meets power, and search meets style.
+
+We don’t just retrieve documents —  
+We **dominate** queries like we dominate the Premier League.
+
+Built with Python, designed for clarity, and evaluated with passion, this project is our playbook for exploring Boolean, Vector Space, and LSA Boolean models.
+
+> *"You may search the whole corpus, but only we retrieve like champions."*
+
+---
+
 
 ## 🛠 Requirements
 
