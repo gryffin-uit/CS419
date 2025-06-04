@@ -56,8 +56,8 @@ def main():
 
     word_lst = {}
     for idx, doc in enumerate(documents, 1):
-        word_lst = create_word_lst(idx, doc, word_lst)
-    word_info_lst = create_vocab_lst(word_lst)
+        word_lst = create_term_freq(idx, doc, word_lst)
+    word_info_lst = create_vocab_list(word_lst)
 
     tf_idf = None
     inverted_index = None
