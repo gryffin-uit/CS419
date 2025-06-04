@@ -4,6 +4,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import normalize
 from models.boolean import boolean_retrieval
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
 
 def LSA_with_boolean(query, documents, inverted_index, number_of_selected,n_components=100):
     # Bước 1: Lọc tài liệu liên quan bằng mô hình Boolean
@@ -14,8 +17,8 @@ def LSA_with_boolean(query, documents, inverted_index, number_of_selected,n_comp
         return []
 
     # Bước 2: Vector hóa tập tài liệu đã lọc
-    vectorizer = CountVectorizer()
-    X = vectorizer.fit_transform(filtered_docs)  # shape (n_docs, n_terms)
+    vectorizer = TfidfVectorizer()
+    X = vectorizer.fit_transform(filtered_docs) # shape (n_docs, n_terms)
 
 
     # Bước 3: Phân tích SVD
@@ -35,4 +38,4 @@ def LSA_with_boolean(query, documents, inverted_index, number_of_selected,n_comp
 
     # Bước 5: Lấy các tài liệu có độ tương đồng cao nhất
     top_docs = [filtered_ids[i] for i in top_indices]
-    return top_docs
+    return top_docs 

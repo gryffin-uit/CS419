@@ -19,7 +19,7 @@ word_lst = {}
 for idx, doc in enumerate(documents, 1):
     word_lst = create_term_freq(idx, doc, word_lst)
 
-#print(word_lst)  # ✅ term frequency dictionary
+# print(word_lst)  # ✅ term frequency dictionary
 
 # Tạo word_info_lst từ word_lst để phục vụ TF-IDF
 word_info_lst = create_vocab_list(word_lst)  # ✅ doc count + total freq
@@ -31,14 +31,15 @@ inverted_index = {}
 for idx, doc in enumerate(documents, 1):
     inverted_index = create_inverted_index(idx, doc, inverted_index)
 
+#print(inverted_index)  # ✅ inverted index
 
 # Boolean Evaluation
 eval_model("Boolean", boolean_retrieval, queries, relevance, inverted_index)
 
-# # # Vector Space Evaluation
+# # # # Vector Space Evaluation
 tf_idf, word_info_lst = prepare_tfidf(documents, word_info_lst)
 eval_model("Vector Space", lambda q,: vectorSpaceModel(q, documents, tf_idf, word_info_lst, TOP_N), queries, relevance)
-# # # LSI Evaluation
+# # # # LSI Evaluation
 eval_model("LSA boolean", lambda q,: LSA_with_boolean(q, documents,inverted_index, TOP_N,n_components=100), queries, relevance)
 
 # Optional: Plotting
