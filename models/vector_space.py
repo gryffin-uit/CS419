@@ -1,6 +1,7 @@
 import numpy as np
 from collections import OrderedDict
 from data.preprocessor import create_words
+import math
 
 def termFrequencyInDoc(word_info_lst, documents):
     tf_docs = {}
@@ -34,17 +35,22 @@ def prepare_tfidf(documents, word_info_lst):
     return tf_idf, word_info_lst
 
 def vectorSpaceModel(query_input, documents, tf_idf, word_info_lst, number_of_selected):
-    query_vocab = []
     query = list(create_words(query_input))
-    for word in query:
-        if word in word_info_lst and word not in query_vocab:
-            query_vocab.append(word)
+    total_terms = len(query)
+    
+    query_vocab = list({word for word in query if word in word_info_lst})
 
-    query_wc = {word: query.count(word) for word in query_vocab}
+    query_tf_idf = {}
+    N = len(documents)  # Tổng số document
+    for word in query_vocab:
+        tf = query.count(word) / total_terms
+        doc_count = word_info_lst[word][0]  
+        idf = math.log2(N / doc_count) if doc_count != 0 else 0
+        query_tf_idf[word] = tf * idf
+
     relevance_scores = {}
-
     for docs_id in range(len(documents)):
-        score = sum(query_wc[word] * tf_idf[word].get(docs_id, 0) for word in query_vocab)
+        score = sum(query_tf_idf[word] * tf_idf[word].get(docs_id, 0) for word in query_vocab)
         relevance_scores[docs_id + 1] = score
 
     sorted_value = OrderedDict(sorted(relevance_scores.items(), key=lambda x: x[1], reverse=True))
