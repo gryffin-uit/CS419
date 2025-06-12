@@ -84,17 +84,18 @@ This script runs different Information Retrieval (IR) models on a specific query
 1. Run Boolean model on query #5, return top 5 documents, show detailed results:
 
    ```bash
-   python run_query.py -qid 5 --model Boolean -n 5 --prepare_inverted_index --show_result
+        python run_query.py -qid 1 --model Boolean --top_n 5 --prepare_inverted_index
 
 2. Run Vector Space model on query #1, return top 10 documents, prepare TF-IDF and inverted index, show detailed results:
 
     ```bash
-    python run_query.py -qid 1 --model VectorSpace --prepare_tfidf --prepare_inverted_index --show_result
+        python run_query.py -qid 2 --model VectorSpace --top_n 5 --show_result
+
 
 3. Run LSA Boolean model on query #3, return top 8 documents, prepare inverted index:
 
     ```bash
-    python run_query.py -qid 3 --model LSA_Boolean -n 8 --prepare_inverted_index
+        python run_query.py -qid 3 --model LSA_Boolean --top_n 5 --prepare_inverted_index --show_result
 
 
 ## 📁 Project Structure
