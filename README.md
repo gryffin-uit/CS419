@@ -73,7 +73,6 @@ This script runs different Information Retrieval (IR) models on a specific query
 - `-qid`: Query ID (1-based index). **Required**
 - `--model`: The IR model to use. Must be one of `"Boolean"`, `"VectorSpace"`, or `"LSA_Boolean"`. **Required**
 - `-n`, `--top_n`: Number of top documents to return (default: 10)
-- `--prepare_tfidf`: Prepare TF-IDF matrix (only used for VectorSpace model)
 - `--prepare_inverted_index`: Prepare inverted index (used by Boolean, LSA_Boolean, and VectorSpace models)
 - `--show_result`: Show detailed content of the returned documents
 
