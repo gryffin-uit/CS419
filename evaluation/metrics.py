@@ -54,7 +54,7 @@ def eval_model(model_name, retrieval_fn, queries, relevance, *args):
 
     Prints:
         Trung bình Precision, Recall, F1-score, MAP nội suy 11 điểm
-    """
+    """     
     total_precision = 0
     total_recall = 0
     total_f1 = 0
@@ -100,3 +100,5 @@ def eval_model(model_name, retrieval_fn, queries, relevance, *args):
     print(f"Recall    (avg): {avg_recall:.4f}")
     print(f"F1-score  (avg): {avg_f1:.4f}")
     print(f"MAP 11-point (avg): {avg_map:.4f}")
+
+    

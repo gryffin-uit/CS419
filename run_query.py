@@ -19,10 +19,8 @@ def run_model(query_id, model_name, top_n, queries, documents, inverted_index=No
         retrieved_docs = boolean_retrieval(query_text, inverted_index)
         retrieved_docs = retrieved_docs[:top_n]
     elif model_name == "VectorSpace":
-        if tf_idf is None or word_info_lst is None:
-            raise ValueError("tf_idf và word_info_lst phải được truyền cho VectorSpace model")
-        retrieved_docs = vectorSpaceModel(query_text, documents, tf_idf, word_info_lst, top_n)
-        retrieved_docs = list(retrieved_docs.keys())[:top_n]
+        retrieved_docs = vector_space_model(documents, [query_text], top_k=top_n)
+        retrieved_docs = [int(doc_id) for doc_id, _ in retrieved_docs[0]]
     elif model_name == "LSA_Boolean":
         if inverted_index is None:
             raise ValueError("inverted_index phải được truyền cho LSA_Boolean model")
@@ -66,9 +64,6 @@ def main():
         inverted_index = {}
         for idx, doc in enumerate(documents, 1):
             inverted_index = create_inverted_index(idx, doc, inverted_index)
-
-    if args.prepare_tfidf or args.model == "VectorSpace":
-        tf_idf, word_info_lst = prepare_tfidf(documents, word_info_lst)
     
     run_model(args.qid, args.model, args.top_n, queries, documents, inverted_index, tf_idf, word_info_lst, args.show_result)
 
