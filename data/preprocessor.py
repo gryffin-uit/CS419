@@ -1,21 +1,22 @@
 import re
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
+from collections import defaultdict
+import numpy as np
+import math
 
 stemmer = SnowballStemmer("english")
 stopword_lst = set(stopwords.words('english'))
 
-def create_words(sentence):
-    words = re.split(r"[^\w]+", sentence)
-    return list(filter(None, words))  # loại bỏ chuỗi rỗng
-
-def create_terms(sentence):
-    # Tách câu thành từ, loại bỏ stopword và áp dụng stemming
+def preprocess_text(sentence):
     word_lst = re.split(r"[^\w]+", sentence)
+    
     terms = []
     for word in filter(None, word_lst):
         word_lower = word.lower()
         if word_lower in stopword_lst:
+            continue
+        if word_lower.isdigit():  
             continue
         stem_word = stemmer.stem(word_lower)
         if len(stem_word) < 3:
@@ -24,36 +25,59 @@ def create_terms(sentence):
     return terms
 
 
-def update_term_freq(doc_id, term, tf_dict):
-    if term in tf_dict:
-        tf_dict[term][doc_id] = tf_dict[term].get(doc_id, 0) + 1
-    else:
-        tf_dict[term] = {doc_id: 1}
-    return tf_dict
+def preprocess_documents(documents):
+    processed_docs = []
+    vocab_dict = {}  
 
-def create_term_freq(doc_id, sentence, tf_dict):
-    for term in create_terms(sentence):
-        tf_dict = update_term_freq(doc_id, term, tf_dict)
-    return tf_dict
+    for doc in documents:
+        terms = preprocess_text(doc)
+        processed_docs.append(terms)
+        for term in terms:
+            if term not in vocab_dict:
+                vocab_dict[term] = None  
 
-def update_inverted_index(doc_id, term, inverted_index):
-    if term in inverted_index:
-        inverted_index[term].add(doc_id)
-    else:
-        inverted_index[term] = {doc_id}
+    vocab_lst = list(sorted(vocab_dict.keys()))
+    return processed_docs, vocab_lst
+
+
+
+def create_inverted_index(processed_docs):
+    inverted_index = defaultdict(lambda: defaultdict(int))  
+
+    for doc_id, terms in enumerate(processed_docs, start=1): 
+        for term in terms:
+            inverted_index[term][doc_id] += 1
+
     return inverted_index
 
-def create_inverted_index(doc_id, sentence, inverted_index):
-    for term in create_terms(sentence):
-        inverted_index = update_inverted_index(doc_id, term, inverted_index)
-    return inverted_index
+
+def vectorize_documents(processed_docs, vocab_lst, inverted_index):
+    D = len(vocab_lst)
+    N = len(processed_docs)
+    vocab_index = {term: i for i, term in enumerate(vocab_lst)}
+
+    doc_vectors = np.zeros((N, D), dtype=int)
+
+    for term, postings in inverted_index.items():
+        term_idx = vocab_index[term]
+        for doc_id, tf in postings.items():
+            doc_vectors[doc_id][term_idx] = tf
+
+    return doc_vectors
 
 
-def create_vocab_list(term_freq_dict):
-    vocab_list = {}
-    for term in term_freq_dict:
-        doc_count = len(term_freq_dict[term])
-        total_freq = sum(term_freq_dict[term].values())
-        vocab_list[term] = [doc_count, total_freq]
-    return vocab_list
+def compute_idf_vector(vocab_lst, inverted_index, total_docs):
+    idf_dict = {}
+    for term in vocab_lst:
+        df = len(inverted_index.get(term, {}))
+        if df == 0:
+            idf = 0
+        else:
+            idf = math.log10(total_docs / df)
+        idf_dict[term] = idf
+    return idf_dict
 
+def compute_tfidf_matrix(tf_matrix, idf_vector):
+    
+    tfidf_matrix = tf_matrix * idf_vector 
+    return tfidf_matrix
