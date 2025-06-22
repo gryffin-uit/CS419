@@ -19,6 +19,7 @@ Built with Python, designed for clarity, and evaluated with passion, this projec
 - Required packages in `requirements.txt`
 
 ## 🚀 How to Run
+Open your VS Code and follow these step below.
 
 1. Clone the repository:
 
