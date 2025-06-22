@@ -80,4 +80,10 @@ Open your VS Code and follow these step below.
 | 2   | 22521465 | Huỳnh Dương Tiến         |
 | 3   | 22521007 | Trần Thành Nhân          |
 
+## 👥 Contributor
+
+[![Contributors](https://contrib.rocks/image?repo=gryffin-uit/CS419)](https://github.com/gryffin-uit/CS419/graphs/contributors)
+
+
+
 
