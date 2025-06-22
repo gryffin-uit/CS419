@@ -26,6 +26,6 @@ def read_relevance(relevance_path):
             file_path = os.path.join(relevance_path, file)
             with open(file_path, 'r') as f:
                 lines = f.readlines()
-                # Xử lý từng dòng: loại bỏ khoảng trắng đầu cuối rồi tách, lấy phần thứ 2 (index 1)
+                
                 relevance[idx] = [int(re.split(r"\s+", li.strip())[1]) for li in lines if li.strip()]
     return relevance
