@@ -55,8 +55,6 @@ Built with Python, designed for clarity, and evaluated with passion, this projec
     code VSM_and_LSI.ipynb
 
 
-
-
 ## 📁 Project Structure
 
 - `VSM_and_LSI.ipynb` – Main script to run evaluations.
